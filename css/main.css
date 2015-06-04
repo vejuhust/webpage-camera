@@ -1,4 +1,4 @@
-body {		
+body {
 	padding: 50px;
 	background: white;
 	color: black;
@@ -34,8 +34,8 @@ h1 {
 	text-align: center;
 }
 
-#fork, 
-#idevelop {
+#fork,
+#vejuhust {
 	display: block;
 	position: fixed;
 	z-index: 10;
@@ -43,7 +43,7 @@ h1 {
 	top: 0;
 	right: 30px;
 	padding: 10px 50px 10px 10px;
-	
+
 	background: url('../images/blacktocat.png') #0090ff no-repeat 95% 50%;
 	border: 1px solid #0090ff;
 	border-top: 0;
@@ -58,17 +58,17 @@ h1 {
 	border-bottom-right-radius: 3px;
 }
 
-#fork:hover, 
-#idevelop:hover {
+#fork:hover,
+#vejuhust:hover {
 	text-decoration: underline;
 }
 
-#idevelop {
+#vejuhust {
 	border: 1px solid #eee;
 	border-top: 0;
 	color: #333;
 	right: 200px;
-	background: url('../images/idevelop.png') #fff no-repeat 95% 50%;	
+	background: url('../images/rabbit.jpg') #fff no-repeat 95% 50%;
 }
 
 #pause {
