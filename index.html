@@ -20,8 +20,9 @@
 
 	<div id="my_camera"></div>
 
-	<!-- First, include the Webcam.js JavaScript Library -->
+	<!-- First, include the Webcam.js & CamanJS JavaScript libraries -->
 	<script type="text/javascript" src="script/webcam.js"></script>
+	<script type="text/javascript" src="script/caman.full.js"></script>
 
 	<!-- Configure a few settings and attach camera -->
 	<script language="JavaScript">
@@ -65,6 +66,11 @@
 		shutter.autoplay = false;
 		shutter.src = navigator.userAgent.match(/Firefox/) ? 'resource/shutter.ogg' : 'resource/shutter.mp3';
 
+		var image_processor = function() {
+			this.clarity();
+			this.render();
+		};
+
 		function preview_snapshot() {
 			// play sound effect
 			shutter.play();
@@ -92,9 +98,13 @@
 				// display results in page
 				document.getElementById('results').innerHTML =
 					'<h2>Click Your Image to Download:</h2>' +
-					'<a download="result.jpg" href="' + data_uri + '">' +
-						'<img src="' + data_uri + '"/>' +
+					'<a id="image-result-down" download="result.jpg" data-preset="love" href="' + data_uri + '">' +
+						'<img id="image-result" src="' + data_uri + '"/>' +
 					'</a>';
+
+				// apply filter to the image
+				Caman("#image-result", image_processor);
+				// Caman("#image-result-down", image_processor);
 
 				// swap buttons back
 				document.getElementById('pre_take_buttons').style.display = '';
