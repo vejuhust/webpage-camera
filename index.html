@@ -69,7 +69,9 @@
 
 		var image_processor = function() {
 			this.clarity();
-			this.render();
+			this.render(function () {
+				$("#image-result-down").attr("href", this.toBase64());
+			});
 		};
 
 		function preview_snapshot() {
@@ -99,13 +101,12 @@
 				// display results in page
 				document.getElementById('results').innerHTML =
 					'<h2>Click Your Image to Download:</h2>' +
-					'<a id="image-result-down" download="result.jpg" data-preset="love" href="' + data_uri + '">' +
+					'<a id="image-result-down" download="result.jpg">' +
 						'<img id="image-result" src="' + data_uri + '"/>' +
 					'</a>';
 
 				// apply filter to the image
 				Caman("#image-result", image_processor);
-				// Caman("#image-result-down", image_processor);
 
 				// swap buttons back
 				document.getElementById('pre_take_buttons').style.display = '';
