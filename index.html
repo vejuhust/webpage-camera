@@ -53,9 +53,17 @@
 
 	<!-- Code to handle taking the snapshot and displaying it locally -->
 	<script language="JavaScript">
+		// preload shutter audio clip
+		var shutter = new Audio();
+		shutter.autoplay = false;
+		shutter.src = navigator.userAgent.match(/Firefox/) ? 'resource/shutter.ogg' : 'resource/shutter.mp3';
+
 		function take_snapshot() {
 			// take snapshot and get image data
 			Webcam.snap( function(data_uri) {
+				// play sound effect
+				shutter.play();
+
 				// display results in page
 				document.getElementById('results').innerHTML =
 					'<h2>Here is your image:</h2>' +
