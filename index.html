@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>WebcamJS Test Page</title>
+	<title>Webpage Camera Prototype Page</title>
 	<style type="text/css">
 		body { font-family: Helvetica, sans-serif; }
 		h2, h3 { margin-top:0; }
@@ -15,7 +15,7 @@
 <body>
 	<div id="results">Your captured image will appear here...</div>
 
-	<h1>WebcamJS Test Page</h1>
+	<h1>Webpage Camera Prototype Page</h1>
 	<h3>Demonstrates 480x480 cropped capture &amp; display</h3>
 
 	<div id="my_camera"></div>
@@ -48,7 +48,13 @@
 
 	<!-- A button for taking snaps -->
 	<form>
-		<input type=button value="Take Snapshot" onClick="take_snapshot()">
+		<div id="pre_take_buttons">
+			<input type=button value="Take Snapshot" onClick="preview_snapshot()">
+		</div>
+		<div id="post_take_buttons" style="display:none">
+			<input type=button value="&lt; Take Another" onClick="cancel_preview()">
+			<input type=button value="Save Photo &gt;" onClick="save_photo()" style="font-weight:bold;">
+		</div>
 	</form>
 
 	<!-- Code to handle taking the snapshot and displaying it locally -->
@@ -58,16 +64,38 @@
 		shutter.autoplay = false;
 		shutter.src = navigator.userAgent.match(/Firefox/) ? 'resource/shutter.ogg' : 'resource/shutter.mp3';
 
-		function take_snapshot() {
-			// take snapshot and get image data
-			Webcam.snap( function(data_uri) {
-				// play sound effect
-				shutter.play();
+		function preview_snapshot() {
+			// play sound effect
+			shutter.play();
 
+			// freeze camera so user can preview pic
+			Webcam.freeze();
+
+			// swap button sets
+			document.getElementById('pre_take_buttons').style.display = 'none';
+			document.getElementById('post_take_buttons').style.display = '';
+		}
+
+		function cancel_preview() {
+			// cancel preview freeze and return to live camera feed
+			Webcam.unfreeze();
+
+			// swap buttons back
+			document.getElementById('pre_take_buttons').style.display = '';
+			document.getElementById('post_take_buttons').style.display = 'none';
+		}
+
+		function save_photo() {
+			// actually snap photo (from preview freeze) and display it
+			Webcam.snap( function(data_uri) {
 				// display results in page
 				document.getElementById('results').innerHTML =
 					'<h2>Here is your image:</h2>' +
 					'<img src="'+data_uri+'"/>';
+
+				// swap buttons back
+				document.getElementById('pre_take_buttons').style.display = '';
+				document.getElementById('post_take_buttons').style.display = 'none';
 			} );
 		}
 	</script>
