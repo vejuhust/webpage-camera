@@ -4,8 +4,8 @@
 	var capturing = false;
 
 	camera.init({
-		width: 160,
-		height: 120,
+		width: 612,
+		height: 612,
 		fps: 30,
 		mirror: true,
 		targetCanvas: frameContainer,
